@@ -1,0 +1,23 @@
+<?php
+
+class UserController extends Zend_COntroller_Action {
+
+
+
+	public function indexAction(){
+		
+	}
+
+	public function registerAction(){
+		
+	}
+
+	public function editAction(){
+
+	}
+
+	public function deleteAction(){
+
+	}	
+
+}

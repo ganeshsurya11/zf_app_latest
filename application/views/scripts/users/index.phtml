@@ -1,0 +1,24 @@
+<?php
+    //print_r($this->users);
+?>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Contact</th>
+        <th>City</th>
+        <th>Action</th>
+    </tr>
+    <?php foreach($this->users as $k => $v): ?>
+    <tr>
+        <td><?php echo $v['id']; ?></td>
+        <td><?php echo $v['username']; ?></td>
+        <td><?php echo $v['contact']; ?></td>
+        <td><?php echo $v['city']; ?></td>
+        <td>
+            <a href="edit-user?id=<?php echo $v['id'];?>">Edit</a>
+            <a href="delete-user?id=<?php echo $v['id'];?>">Delete</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>

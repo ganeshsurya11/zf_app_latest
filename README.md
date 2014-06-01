@@ -1,4 +1,4 @@
-zf_app_latest
-=============
+zf_app
+======
 
-zend 1 CRUD
+This is just a practice for zend application

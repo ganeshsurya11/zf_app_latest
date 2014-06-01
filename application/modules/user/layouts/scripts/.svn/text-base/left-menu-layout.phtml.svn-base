@@ -1,0 +1,154 @@
+<?php
+/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*--*-*-*-*-*\
+
+Purpose  :
+Shaadi
+
+Change History	:
+
+Mod#		Date			Who			Description
+---------	----------		----------	---------------------------------
+000000029	25-Jan-2012		Rohan K		removed unnecessary code
+000000028	29-Jan-2013		Sushil Y		Remove calling of jcarousel and jcarousel-skin css since same are merged in components.css
+000000027	24-Jan-2013 	Rohan K		shortlist tabs seprated
+000000026	16-Jan-2012 	Rohan K		docking of navigation bar
+000000025  	22-Nov-2012     Rohan K     Added tab5
+000000023  	26-Sep-2012		Pradip J	Notification Cleanup
+000000022	17/Aug/2012		Vaibhav L	Photo Scrolling
+000000021	02/Aug/2012		Ramesh C	Unified Inbox
+000000020	18-Jun-2012		Parvez K	Remove shortlist css and added select-profile css
+000000019	27-Jun-2012		Jigar S		Added files for Album gallery plugin
+000000018	05-Jun-2012		Prashant J	Page width changed to 960px
+000000017   08-May-2011    	Jigar S     Added excanvas js to handle login layer tooltip in IE
+000000016   09-Jan-2012    Vaibhav L    Top banner fix on profile
+000000015   06-Dec-2011    Prajeed AV   campaign_layer integrated
+000000014   21-Oct-2011     Ganesh  	EOI layer added
+000000013   04-Oct-2011    	Pinal S     Adding displayname JS
+000000012   23-Sep-2011     Ganesh  	Promo layer html added
+000000011   07-Sep-2011     Ganesh  	Notification Bar
+000000010   07-Jul-2011     Parvez K	removed css search, visitor, tabs
+000000009   07-Jun-2011     Manasi K	added tab 4 in shortlist
+000000008   09-Jun-2011     Sangeeta P  	Added css for tabs
+000000007   31-Mar-2011     Ganesh  	Notification Bar
+000000006   25-Mar-2011     Jayant P	Pagination changed
+000000005	25-Feb-2011		Vaibhav L	Shbar IM
+000000004	25-Nov-2010		Piyush T	Added meta tag to handle Skype Extension
+000000003	02-Nov-2010		Sachin A	removed contextmenu="return false" for shortlist page
+000000002	23-Jul-2010		Jijo P		removed contextmenu="return false" for shortlist page
+000000001	25-May-2010		Prashant J  <br clear="all" /> added
+
+\*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+echo $this->doctype()
+?>
+<html lang="en-US" xml:lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <?php echo $this->headTitle();?>
+		<?php 
+			$this->headMeta()->appendName('SKYPE_TOOLBAR', 'SKYPE_TOOLBAR_PARSER_COMPATIBLE');
+		?>
+        <?php echo $this->headMeta() ?>
+        <?php echo $this->community()->webmasterTools();?>
+        <?php $this->headLink()->appendStylesheet($this->config['css']['main']) ?>
+        <?php if(SHBAR && !empty($this->logger['loggerlogin'])){
+                $this->headLink()->appendStylesheet($this->config['css']['shbar']);
+              }
+        ?>
+		<?php $this->headLink()->appendStylesheet($this->config['css']['components']) ?>
+		<?php
+            if($this->profile()->isSelectProfile()) {
+                $this->headLink()->appendStylesheet($this->config['css']['select-profile']);
+            } 
+        ?>
+		
+
+        <?php echo $this->headLink(); ?>
+
+        <?php $this->headScript()->prependFile($this->config['js']['jquery'],'text/javascript');?>
+        <?php $this->headScript()->appendFile($this->config['js']['homepage'],'text/javascript'); ?>
+        <?php $this->headScript()->appendFile($this->config['js']['shortlist'],'text/javascript'); ?>
+        
+        <?php $this->headScript()->appendFile($this->config['js']['matrimonials'],'text/javascript');?>
+        <?php $this->headScript()->appendFile($this->config['js']['top-left-menu'],'text/javascript'); ?>
+
+		<?php $this->headScript()->appendFile($this->config['js']['displayname'],'text/javascript'); ?>
+        <?php $this->headScript()->appendFile($this->config['js']['message-layer'],'text/javascript');?>
+
+        <?php $this->headScript()->appendFile($this->config['js']['excanvas'],'text/javascript', array('conditional' => 'IE'));?>
+        <?php $this->headScript()->appendFile($this->config['js']['bt'],'text/javascript'); ?>
+        <?php $this->headScript()->appendFile($this->config['js']['hover-intent'],'text/javascript'); ?>
+        <?php $this->headScript()->appendFile($this->config['js']['jquery-bgiframe'],'text/javascript'); ?>
+        
+		<?php
+            // Start of album gallery JS files
+            $this->headScript()->appendFile($this->config['js']['modal'],'text/javascript');
+            $this->headScript()->appendFile($this->config['js']['jcarousel'],'text/javascript');
+            $this->headScript()->appendFile($this->config['js']['album-gallery'],'text/javascript');
+            $this->headScript()->appendFile($this->config['js']['cycle'],'text/javascript');
+            // End of album gallery JS files
+		?>        
+
+		<?php $this->chat()->load() ?>
+        
+		<?php $this->innerTopMenu = $this->innerTopMenu(); ?>
+		<?php
+	    $script_tab_urls = 'var pageUrl = new Array();
+		pageUrl[1] = "/profile/shortlist/tab1";
+		pageUrl[2] = "/profile/shortlist/tab2";		
+		var IMG_HTTP_URL= "'.IMG_HTTP_URL.'"';
+		$this->headScript()->appendScript($script_tab_urls);
+	    ?>
+        <?php
+            echo $this->headScript();
+            $this->headScript()->exchangeArray(array());
+        ?>
+    </head>
+        <body>
+		<!-- TOP BAND START -->
+        <?php echo $this->topBand()->show(); ?>
+        <!-- TOP BAND END -->
+
+        <!-- MENU START -->
+			<?php echo $this->innerTopMenu(); ?>
+       <!-- MENU END -->
+		<div id="pg_wrap">
+		<div id="container-inner" class="left_border">
+        <div id="left-nav-bg">
+		<?php
+		echo $this->leftMenu()->partnerSearchLinks();
+		echo $this->leftMenu()->quickLinks();
+		echo $this->searchByProfileId();
+		echo $this->useFulLinks();
+
+        // left menu ads - it comes from internal phtml files of related controllers
+        //  - profile page
+        echo "<br />";
+        echo $this->leftMenuAds;
+		?>
+		</div>
+		<div id="content_area">
+		<?php
+		echo $this->contentHeader();
+		echo $this->layout()->content;
+		?>
+		</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div id="footer_nav">
+        <?php
+	        echo $this->footer()->navigation();
+		?>
+		</div>
+        <?php
+            echo $this->footer()->common();
+        ?>
+        <?php
+        //------------------ stop layers start ------------------------------------//
+        if($this->campaign_layer==true)
+        {
+            echo $this->layers()->showhtml($this->layer_info);
+        }
+        ?>
+        <?php echo $this->headScript(); ?>
+</body>
+</html>

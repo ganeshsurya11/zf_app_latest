@@ -1,0 +1,120 @@
+<?php
+
+/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*--*-*-*-*-*\
+
+Mod#	        Date			Who				Description
+--------------------------------------------------------------------------------------
+0000000009     25-Jan-2012		Rohan K         removed unnecessary code
+0000000008	   29-Jan-2013		Sushil Y		Remove calling of jcarousel and jcarousel-skin css since same are merged in components.css
+0000000007	   16-Jan-2012 		Rohan K			docking of navigation bar
+0000000006     26-Sep-2012		Pradip J		Notification Cleanup
+0000000005     21/Aug/2012		Vaibhav L       Photo Scrolling
+0000000004	   27-Jun-2012		Jigar S			Added files for Album gallery plugin
+0000000003	   05-Jun-2012		Prashant J		Page width changed to 960px
+0000000002     08-May-2011    	Jigar S     	Added excanvas js to handle login layer tooltip in IE
+0000000001	   23-Mar-2012		Jigar S			created.
+
+\*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+
+
+
+echo $this->doctype()
+?>
+<html lang="en-US" xml:lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <?php echo $this->headTitle();?>
+		<?php
+			$this->headMeta()->appendName('SKYPE_TOOLBAR', 'SKYPE_TOOLBAR_PARSER_COMPATIBLE');
+		?>
+        <?php echo $this->headMeta() ?>
+        <?php echo $this->community()->webmasterTools();?>
+        <?php $this->headLink()->appendStylesheet($this->config['css']['main']) ?>
+		<?php $this->headLink()->appendStylesheet($this->config['css']['myshaadi-pp'])?>
+		<?php $this->headLink()->appendStylesheet($this->config['css']['button'])?>
+        <?php if(SHBAR && !empty($this->logger['loggerlogin'])){
+                $this->headLink()->appendStylesheet($this->config['css']['shbar']);
+            }
+        ?>
+		<?php $this->headLink()->appendStylesheet($this->config['css']['components']) ?>
+		<?php $this->headLink()->appendStylesheet($this->config['css']['messagelayer'])?>
+
+        <?php echo $this->headLink(); ?>
+        <?php $this->headScript()->appendFile($this->config['js']['excanvas'],'text/javascript', array('conditional' => 'IE'));?>
+
+        <?php $this->headScript()->prependFile($this->config['js']['jquery'],'text/javascript');?>
+        <?php $this->headScript()->appendFile($this->config['js']['homepage'],'text/javascript'); ?>
+        <?php $this->headScript()->appendFile($this->config['js']['matrimonials'],'text/javascript');?>
+        <?php $this->headScript()->appendFile($this->config['js']['top-left-menu'],'text/javascript'); ?>
+		<?php $this->headScript()->appendFile($this->config['js']['displayname'],'text/javascript'); ?>
+        <?php $this->headScript()->appendFile($this->config['js']['message-layer'],'text/javascript'); ?>
+		<?php $this->headScript()->appendFile($this->config['js']['search-reg']); ?>
+        <?php $this->headScript()->appendFile($this->config['js']['bt'],'text/javascript'); ?>
+        <?php $this->headScript()->appendFile($this->config['js']['hover-intent'],'text/javascript'); ?>
+        <?php $this->headScript()->appendFile($this->config['js']['jquery-bgiframe'],'text/javascript'); ?>  
+
+		<?php
+		// Start of album gallery JS files
+		$this->headScript()->appendFile($this->config['js']['modal'],'text/javascript');
+		$this->headScript()->appendFile($this->config['js']['jcarousel'],'text/javascript');
+		$this->headScript()->appendFile($this->config['js']['album-gallery'],'text/javascript');
+		// End of album gallery JS files
+		?>
+        <?php
+        //Cycle plugin
+   		$this->headScript()->appendFile($this->config['js']['cycle'],'text/javascript');
+        ?>
+		<?php $this->chat()->load() ?>
+
+		<?php $this->innerTopMenu = $this->innerTopMenu(); ?>
+		<?php
+            $script_tab_urls = 'var pageUrl = new Array();
+            pageUrl[1] = "/profile/shortlist/tab1";
+            pageUrl[2] = "/profile/shortlist/tab2";
+            var IMG_HTTP_URL= "'.IMG_HTTP_URL.'"';
+            $this->headScript()->appendScript($script_tab_urls);
+	    ?>
+        <?php
+            echo $this->headScript();
+            $this->headScript()->exchangeArray(array());
+        ?>
+    </head>
+        <body>
+		<!-- TOP BAND START -->
+        <?php echo $this->topBand()->show(); ?>
+        <!-- TOP BAND END -->
+
+        <!-- MENU START -->
+			<?php echo $this->innerTopMenu(); ?>
+       <!-- MENU END -->
+		<div id="pg_wrap">
+			<div id="container-inner">
+				<div id="content_area">
+					<?php
+						echo $this->contentHeader();
+						echo $this->layout()->content;
+					?>
+				</div>
+				<div id="right_reg" class="fr">
+					<?php echo $this->registration()->rightReg(); ?>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div id="footer_nav">
+			<?php
+				echo $this->footer()->navigation();
+			?>
+		</div>
+		<?php
+			echo $this->footer()->common();
+		?>
+		<?php
+        //------------------ stop layers start ------------------------------------//
+        if($this->campaign_layer==true)
+        {
+            echo $this->layers()->showhtml($this->layer_info);
+        }
+        ?>
+        <?php echo $this->headScript(); ?>
+</body>
+</html>

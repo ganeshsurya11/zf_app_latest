@@ -1,0 +1,42 @@
+[production]
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+includePaths.library = APPLICATION_PATH "/../library"
+bootstrap.path = APPLICATION_PATH "/Bootstrap.php"
+bootstrap.class = "Bootstrap"
+appnamespace = "Application"
+resources.frontController.controllerDirectory = APPLICATION_PATH "/controllers"
+resources.frontController.params.displayExceptions = 1
+resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts"
+
+resources.frontController.defaultModule = "default"
+resources.frontController.defaultController = "index"
+resources.frontController.defaultAction = "index"
+resources.modules[] = ""
+resources.frontController.moduleDirectory = APPLICATION_PATH "/modules"
+resources.view[] =
+;resources.view.helperPath = APPLICATION_PATH "/views/helpers"
+
+;autoloaderNamespaces[] = "zf_app_"
+
+
+resources.db.adapter	 = "PDO_MYSQL"
+resources.db.params.host  = "localhost"
+resources.db.params.dbname  = "zf_app"
+resources.db.params.username  = "root"
+resources.db.params.password  = "root"
+;jwl.server1.username  = "jinesh24_theartj"
+;jwl.server1.password  = "I9hSMNIavv4Q"
+;jwl.server1.dbname    = "jinesh24_jewellery"
+
+
+[staging : production]
+
+[testing : production]
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+
+[development : production]
+phpSettings.display_startup_errors = 0
+phpSettings.display_errors = 0
+resources.frontController.params.displayExceptions = 0
